@@ -35,11 +35,8 @@ services:
       - "3307:3306"
     volumes:
       - todoapp-db-data:/var/lib/mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: yourdatabase
-      MYSQL_USER: youruser
-      MYSQL_PASSWORD: yourpassword
+    env_file:
+      - .env
     networks:
       - todoapp-net
 

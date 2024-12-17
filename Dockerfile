@@ -14,8 +14,10 @@ ENV PYTHONUNBUFFERED=1
 
 COPY --from=builder /app .
 
-RUN apt-get update && apt-get install -y \
+# Update and install dependencies with cleanup to reduce image size
+RUN apt-get update && apt-get install -y --no-install-recommends \
     libmariadb-dev \
+    && rm -rf /var/lib/apt/lists/* \
     && pip install --upgrade pip \
     && pip install mysqlclient \
     && pip install -r requirements.txt
